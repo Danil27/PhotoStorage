@@ -1,5 +1,5 @@
 {
-  "name": "PhotoStorage-api",
+  "name": "photo-storage-api",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -29,12 +29,15 @@
     "@koa/cors": "2.2.3",
     "dotenv": "8.0.0",
     "joi": "14.3.1",
+    "jsonwebtoken": "^8.5.1",
     "koa": "2.7.0",
     "koa-bodyparser": "4.2.1",
     "koa-compress": "3.0.0",
     "koa-helmet": "4.1.0",
+    "koa-jwt": "^4.0.0",
     "koa-logger": "3.2.0",
     "koa-router": "7.4.0",
+    "koa-unless": "^1.0.7",
     "uuid": "3.3.2"
   }
 }

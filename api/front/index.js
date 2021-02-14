@@ -2,13 +2,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const Router = require('koa-router');
 
 const baseName = path.basename(__filename);
 
-function applyApiMiddleware(app) {
+module.exports = Router => {
   const router = new Router({
-    prefix: '/api',
+    prefix: '/front',
   });
 
   // Require all the folders and create a sub-router for each feature api
@@ -19,7 +18,5 @@ function applyApiMiddleware(app) {
       router.use(api.routes());
     });
 
-  app.use(router.routes()).use(router.allowedMethods());
-}
-
-module.exports = applyApiMiddleware;
+  return router;
+};
