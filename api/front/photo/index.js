@@ -10,6 +10,11 @@ module.exports = Router => {
       path: '/photos',
       handler: Handlers.photos,
     },
+    {
+      method: 'post',
+      path: '/loadPhoto',
+      handler: Handlers.loadPhoto,
+    },
   ];
 
   for (const { method, path, handler } of endpoints) {

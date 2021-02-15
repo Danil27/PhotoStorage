@@ -1,5 +1,5 @@
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser')();
+const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress')();
 const cors = require('@koa/cors')(/* Add your cors option */);
 const helmet = require('koa-helmet')(/* Add your security option */);
@@ -26,7 +26,9 @@ server
   .use(helmet)
   .use(compress)
   .use(cors)
-  .use(bodyParser);
+  .use(bodyParser({
+    formLimit: '50mb',
+  }))
 
 /**
  * Apply to our server the api router
