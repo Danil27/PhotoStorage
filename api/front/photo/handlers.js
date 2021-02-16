@@ -11,9 +11,9 @@ module.exports.photos = async (ctx, next) => {
 };
 
 module.exports.loadPhoto = async (ctx, next) => {
-  const data = ctx.files;
-  console.log(data)
-  fs.writeFile('./public/' + data.name, data.formData, 'binary', (err) => {
+  const { body, files } = ctx.request;
+  console.log(body);
+  fs.writeFile('./public/' + '1.png', body.file, 'binary', (err) => {
     if (err) return console.log(err);
     console.log("The file was saved!");
   })

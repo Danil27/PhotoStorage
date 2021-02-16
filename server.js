@@ -4,6 +4,7 @@ const compress = require('koa-compress')();
 const cors = require('@koa/cors')(/* Add your cors option */);
 const helmet = require('koa-helmet')(/* Add your security option */);
 const logger = require('koa-logger')();
+const formidable = require('koa2-formidable');
 
 const errorHandler = require('./middleware/error.middleware');
 const applyApiMiddleware = require('./api');
@@ -26,9 +27,12 @@ server
   .use(helmet)
   .use(compress)
   .use(cors)
-  .use(bodyParser({
-    formLimit: '50mb',
-  }))
+  .use(formidable())
+  .use(
+    bodyParser({
+      formLimit: '50mb',
+    }),
+  );
 
 /**
  * Apply to our server the api router
