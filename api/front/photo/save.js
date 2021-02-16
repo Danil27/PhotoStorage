@@ -1,21 +1,27 @@
 'use strict';
 
 const multer = require('@koa/multer');
-const Path = require('path');
-const UPLOAD_DIR = Path.resolve(__dirname, './public');
+const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
+const UPLOAD_DIR = path.resolve(__dirname, '../../../public/');
 
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => cb(null, UPLOAD_DIR),
-    filename: (req, file, cb) => cb(null, file.originalname),
-  }),
-  limits: {
-    fileSize: 20 * 1000 * 1000,
-  },
+  dest: UPLOAD_DIR
 });
 module.exports = Router => {
-  return new Router().post('/save', upload.single('avatar'), ctx => {
-    console.log('ctx.request.file', ctx.request.files);
+  return new Router().post('/save', ctx => {
+    try {
+      const fileName = ctx.request.files.file.name;
+      const path = ctx.request.files.file.path;
+      fs.writeFileSync(
+        path.join(UPLOAD_DIR, fileName),
+        fs.readFileSync(path)
+      )
+    } catch (err) {
+      console.log(err)
+    }
+
     ctx.status = 200;
   });
 };
