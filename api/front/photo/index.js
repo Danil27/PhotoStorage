@@ -1,25 +1,22 @@
 'use strict';
 
-const Handlers = require('./handlers');
+const fs = require('fs');
+const path = require('path');
+
+const baseName = path.basename(__filename);
 
 module.exports = Router => {
-  const router = new Router();
-  const endpoints = [
-    {
-      method: 'post',
-      path: '/photos',
-      handler: Handlers.photos,
-    },
-    {
-      method: 'post',
-      path: '/loadPhoto',
-      handler: Handlers.loadPhoto,
-    },
-  ];
+  const router = new Router({
+    prefix: '/photo',
+  });
 
-  for (const { method, path, handler } of endpoints) {
-    router[method](path, handler);
-  }
+  // Require all the folders and create a sub-router for each feature api
+  fs.readdirSync(__dirname)
+    .filter(file => file.indexOf('.') !== 0 && file !== baseName)
+    .forEach(file => {
+      const api = require(path.join(__dirname, file))(Router);
+      router.use(api.routes());
+    });
 
   return router;
 };
