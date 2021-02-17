@@ -5,6 +5,8 @@ const cors = require('@koa/cors')(/* Add your cors option */);
 const helmet = require('koa-helmet')(/* Add your security option */);
 const logger = require('koa-logger')();
 const formidable = require('koa2-formidable');
+const koaStatic = require('koa-static');
+const path = require('path');
 
 const errorHandler = require('./middleware/error.middleware');
 const applyApiMiddleware = require('./api');
@@ -18,6 +20,8 @@ const server = new Koa();
 if (isDevelopment) {
   server.use(logger);
 }
+
+server.use(koaStatic(path.join(__dirname, './public')));
 
 /**
  * Pass to our server instance middlewares
